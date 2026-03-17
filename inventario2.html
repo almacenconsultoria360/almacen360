@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario - 360</title>
+    <link rel="stylesheet" href="assets/css/principal.css">
+    <link rel="stylesheet" href="assets/css/inventario.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo-link">
+        <div class="logo-link">
+            <img src="assets/img/logo.png" alt="Logo" class="logo-img">
+            <div class="logo-textos-container">
+                <span class="logo-texto">TRES SESENTA CONSULTORÍA, S.A. DE C.V.</span>
+                <span class="logo-eslogan">LO QUE SE MIDE, SE PUEDE MEJORAR.</span>
+            </div>
+        </div>
+        </a>
+        <a href="javascript:void(0);" onclick="volverAtras()" class="boton-regresar-area" title="Volver">
+            <span class="icono-flecha">&#10094;</span> 
+        </a>
+    </nav>
+
+    <main class="contenedor-tabla">
+        <div class="panel-gris-formal">
+            
+            <div class="dashboard-resumen">
+                <div class="card-conteo card-critico">
+                    Críticos <span id="resumenCritico" class="numero-conteo">0</span>
+                </div>
+                <div class="card-conteo card-medio">
+                    Bajos <span id="resumenMedio" class="numero-conteo">0</span>
+                </div>
+                <div class="card-conteo card-optimo">
+                    Óptimo <span id="resumenOptimo" class="numero-conteo">0</span>
+                </div>
+            </div>
+
+            <header class="header-inventario">
+                <h2 class="titulo-seccion-interna">Almacén</h2>
+            </header>
+
+            <div class="contenedor-controles" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
+                <div class="grupo-busqueda" style="flex: 1; min-width: 200px;">
+                    <input type="text" id="inputBusqueda" placeholder="Buscar por producto o ID..." onkeyup="aplicarFiltros()" style="width: 100%;">
+                </div>
+                
+                <div class="grupo-filtro">
+                    <select id="filtroSeccion" class="dropdown-formal" onchange="aplicarFiltros()">
+                        <option value="todos">GENERAL</option>
+                        <option value="CCI1">CCI1</option>
+                        <option value="CC12">CC12</option>
+                        <option value="CCM">CCM</option>
+                        <option value="OFICINA DE HEIDI">OFICINA DE HEIDI</option>
+                        <option value="OFICINA DEL LIC">OFICINA DEL LIC</option>
+                        <option value="COMEDOR">COMEDOR</option>
+                    </select>
+                </div>
+
+                <button onclick="enviarWhatsAppResurtido()" class="btn-whatsapp-inventario" 
+                        style="background-color: #25D366; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; height: 42px;">
+                    <span>🟢</span> PEDIR PRODUCTOS
+                </button>
+            </div>
+
+            <table class="tabla-formal-datos">
+                <thead>
+                    <tr>
+                        <th class="th-id">ID</th>
+                        <th>Producto</th>
+                        <th>Ubicación</th>
+                        <th style="text-align: center;">Stock / Max</th>
+                        <th class="th-fecha">Actualizado</th>
+                        <th style="text-align: center;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        function volverAtras() {
+            if (document.referrer !== "") {
+                window.history.back();
+            } else {
+                window.location.href = 'principal.html';
+            }
+        }
+    </script>
+
+    <script type="module" src="assets/js/inventario.js"></script>
+    <script src="assets/js/principal.js"></script>
+</body>
+</html>

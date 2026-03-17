@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal - 360</title>
+    <link rel="stylesheet" href="assets/css/empleados.css">
+</head>
+<body>
+    <header class="barra-superior-360">
+        <a href="javascript:void(0);" onclick="volverAtras()" class="boton-regresar-magenta" title="Volver">
+            <span class="icono-flecha">&#10094;</span> 
+        </a>
+        <div class="titulo-seccion-360">DIRECTORIO DE PERSONAL</div>
+    </header>
+
+    <main class="contenedor-principal">
+        <div class="seccion-herramientas">
+            <div class="buscador-premium">
+                <span class="icono-lupa">🔍</span>
+                <input type="text" id="inputBusqueda" placeholder="Buscar por nombre, correo o puesto..." onkeyup="filtrarPersonal()">
+            </div>
+            <div class="contador-empleados">
+                Total: <span id="num-empleados">0</span>
+            </div>
+        </div>
+
+        <div id="contenedor-personal" class="grid-personal">
+            </div>
+    </main>
+
+    <script type="module" src="assets/js/empleados.js"></script>
+    <script src="assets/js/principal.js"></script>
+</body>
+</html>

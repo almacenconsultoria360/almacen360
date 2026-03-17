@@ -1,0 +1,54 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+}
+
+.contenedor-principal {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tarjeta-blanca {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.modal-header-formal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.tabla-formal-carga {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-formal-carga th {
+    text-align: left;
+    padding: 15px;
+    color: #888;
+    background: #fdfdfd;
+    border-bottom: 2px solid #eee;
+}
+
+.tabla-formal-carga td {
+    padding: 15px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.badge-empleado {
+    background: #f0f2f5;
+    padding: 5px 12px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+.titulo-seccion{
+    color: #eee;
+}

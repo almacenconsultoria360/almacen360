@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta de Productos - 360</title>
+    <link rel="stylesheet" href="assets/css/AltaProducto.css">
+    <link rel="stylesheet" href="assets/css/principal.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="principal.html" class="logo-link">
+            <img src="assets/img/logo.png" alt="Logo 360" class="logo-img">
+            <div class="logo-textos-container">
+                <span class="logo-texto">TRES SESENTA CONSULTORÍA, S.A. DE C.V.</span>
+                <span class="logo-eslogan">LO QUE SE MIDE, SE PUEDE MEJORAR.</span>
+            </div>
+            <a href="javascript:void(0);" onclick="volverAtras()" class="boton-regresar-magenta" title="Volver">
+    <span class="icono-flecha">&#10094;</span> 
+</a>
+        </a>
+    </nav>
+
+    <main class="contenedor-registro">
+        <div class="panel-blanco-moderno">
+            <div class="contenido-flex">
+                <div class="seccion-tabla">
+                    <table class="tabla-moderna">
+                        <thead>
+                            <tr>
+                                <th>ID SUGERIDO</th>
+                                <th>NOMBRE DEL PRODUCTO</th>
+                                <th>SECCIÓN / UBICACIÓN</th>
+                                <th>STOCK INICIAL</th>
+                                <th>STOCK IDEAL (MÁX)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="reg-id" class="id-resaltado">----</td>
+                                <td><input type="text" id="reg-nombre" placeholder="Nombre..." class="input-moderno"></td>
+                                <td>
+                                    <select id="reg-seccion" class="input-moderno select-magenta">
+                                        <option value="" disabled selected>Selecciona ubicación...</option>
+                                        <option value="CCI1">CCI1</option>
+                                        <option value="CC12">CC12</option>
+                                        <option value="CCM">CCM</option>
+                                        <option value="OFICINA DE HEIDI">OFICINA DE HEIDI</option>
+                                        <option value="OFICINA DEL LIC">OFICINA DEL LIC</option>
+                                        <option value="COMEDOR">COMEDOR</option>
+                                    </select>
+                                </td>
+                                <td><input type="number" id="reg-stock" value="0" class="input-moderno input-num"></td>
+                                <td><input type="number" id="reg-stock-ideal" value="10" class="input-moderno input-num"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel-acciones-lateral">
+                    <div class="tarjeta-botones">
+                        <button class="btn-premium btn-guardar" onclick="guardarNuevoProducto()">GUARDAR</button>
+                        <button class="btn-premium btn-limpiar" onclick="limpiarCampos()">LIMPIAR</button>
+                    </div>
+                </div>
+            </div>
+            <p class="nota-informativa">
+                * El <b>Stock Ideal</b> ayuda a calcular las alertas visuales (Rojo, Amarillo, Verde) en el inventario.
+            </p>
+        </div>
+    </main>
+
+    <script>
+        function volverAtras() {
+            if (document.referrer !== "") {
+                window.history.back();
+            } else {
+                window.location.href = 'principal.html';
+            }
+        }
+    </script>
+    <script type="module" src="assets/js/AltaProducto.js"></script>
+</body>
+</html>
