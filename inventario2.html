@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario - Tres Sesenta</title>
+    <link rel="stylesheet" href="assets/css/principal.css">
+    <link rel="stylesheet" href="assets/css/inventario.css">
+    <style>
+        /* --- ESTILOS DE LA CAMPANA (Copia exacta del index) --- */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            padding-right: 15px;
+        }
+
+        #btnNotificaciones {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            font-size: 22px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        #btnNotificaciones:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        #contadorNotis {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: #ff3b30;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: none;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .latido { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 59, 48, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+        }
+
+        .modal-notis {
+            position: fixed;
+            top: 0; right: 0;
+            width: 380px;
+            height: 100%;
+            background: #ffffff;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+            z-index: 10000;
+            display: none;
+            flex-direction: column;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+        @media (max-width: 480px) {
+            .modal-notis { width: 100%; }
+        }
+
+        .header-notis { padding: 20px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; color: #333; }
+        .lista-historial { flex-grow: 1; overflow-y: auto; padding: 15px; background: #fafafa; }
+        .item-noti { 
+            padding: 15px; border-radius: 12px; background: #fff; margin-bottom: 12px; 
+            border: 1px solid #f0f0f0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); text-align: left;
+        }
+        .item-noti strong { display: block; color: #1a1a1a; margin-bottom: 5px; font-size: 14px; }
+        .item-noti p { margin: 0; font-size: 13px; color: #555; line-height: 1.4; }
+        .item-noti small { display: block; margin-top: 10px; color: #999; font-size: 11px; }
+        .footer-notis { padding: 20px; border-top: 1px solid #f0f0f0; }
+        .btn-limpiar { width: 100%; padding: 12px; background: #f8f8f8; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: #999; }
+    /* --- ARREGLO PARA CELULARES --- */
+@media screen and (max-width: 768px) {
+    .tabla-formal-datos thead { display: none; } /* Ocultamos la cabecera real */
+    
+    .tabla-formal-datos tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .tabla-formal-datos td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        padding: 12px 15px;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 14px;
+    }
+
+    /* Aquí usamos el 'data-label' que pusimos en el JS */
+    .tabla-formal-datos td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #7c4dff;
+        text-transform: uppercase;
+        font-size: 11px;
+    }
+
+    .tabla-formal-datos td:last-child { border-bottom: none; }
+}
+
+/* --- COLORES DE FILAS --- */
+.fila-critica { background-color: #ffe5e5 !important; }
+.fila-media { background-color: #fff9db !important; }
+.fila-optima { background-color: #ebfbee !important; }
+
+.btn-editar-stock {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-link">
+            <img src="assets/img/logo.png" alt="Logo" class="logo-img">
+            <div class="logo-textos-container">
+                <span class="logo-texto">TRES SESENTA CONSULTORÍA, S.A. DE C.V.</span>
+                <span class="logo-eslogan">LO QUE SE MIDE, SE PUEDE MEJORAR.</span>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <button id="btnNotificaciones" onclick="abrirPanelNotis()">
+                🔔<span id="contadorNotis">0</span>
+            </button>
+            <a href="javascript:void(0);" onclick="volverAtras()" class="boton-regresar-area" style="margin-left: 15px;">
+                <span class="icono-flecha">&#10094;</span> 
+            </a>
+        </div>
+    </nav>
+
+    <main class="contenedor-tabla">
+        <div class="panel-gris-formal">
+            
+            <div class="dashboard-resumen">
+                <div class="card-conteo card-critico">Críticos <span id="resumenCritico" class="numero-conteo">0</span></div>
+                <div class="card-conteo card-medio">Bajos <span id="resumenMedio" class="numero-conteo">0</span></div>
+                <div class="card-conteo card-optimo">Óptimo <span id="resumenOptimo" class="numero-conteo">0</span></div>
+            </div>
+
+            <header class="header-inventario">
+                <h2 class="titulo-seccion-interna">Almacén General</h2>
+            </header>
+
+            <div class="contenedor-controles-fila" style="display: flex; gap: 15px; align-items: center; margin-bottom: 25px; flex-wrap: wrap;">
+                <div style="flex: 2; min-width: 250px; position: relative;">
+                    <input type="text" id="inputBusqueda" placeholder="Buscar por producto o ID..." 
+                           style="width: 100%; padding: 12px 15px; border-radius: 10px; border: 2px solid #e2e8f0; outline: none;">
+                </div>
+                
+                <select id="filtroSeccion" class="dropdown-formal" style="flex: 1; min-width: 180px; padding: 12px; border-radius: 10px; border: 2px solid #7c4dff; font-weight: 600;">
+                    <option value="todos">GENERAL</option>
+                    <option value="CCI1">CCI1</option>
+                    <option value="CC12">CC12</option>
+                    <option value="CCM">CCM</option>
+                    <option value="OFICINA DE HEIDI">OFICINA DE HEIDI</option>
+                    <option value="OFICINA DEL LIC">OFICINA DEL LIC</option>
+                    <option value="COMEDOR">COMEDOR</option>
+                    <option value="BODEGA 1">BODEGA 1</option>
+                    <option value="BODEGA 2">BODEGA 2</option>
+                </select>
+
+                <button onclick="enviarWhatsAppResurtido()" class="btn-whatsapp-surtido" 
+                        style="background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                    <span>🟢</span> PEDIR PRODUCTOS
+                </button>
+            </div>
+
+            <table class="tabla-formal-datos">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">ID</th>
+                        <th>Producto</th>
+                        <th>Ubicación</th>
+                        <th style="text-align: center;">Stock / Max</th>
+                        <th>Actualizado</th>
+                        <th style="text-align: center;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="modalPedido" class="modal-overlay">
+        <div class="modal-contenido">
+            <div class="modal-header-moderno">
+                <div class="header-info">
+                    <h2>📋 Revisión de Pedido</h2>
+                    <p>Confirma las cantidades para el resurtido.</p>
+                </div>
+                <button onclick="cerrarModal()" class="btn-cerrar-x">&times;</button>
+            </div>
+            <div class="modal-body-moderno">
+                <div class="col-pedido">
+                    <div class="etiqueta-prioridad prioridad-alta">🔴 CRÍTICOS (URGENTE)</div>
+                    <div id="listaCriticos"></div>
+                </div>
+                <div class="col-pedido">
+                    <div class="etiqueta-prioridad prioridad-baja">🟡 STOCK BAJO</div>
+                    <div id="listaMedios"></div>
+                </div>
+            </div>
+            <div class="modal-footer-moderno">
+                <button onclick="cerrarModal()" class="btn-cancelar">Cerrar</button>
+                <button onclick="procesarEnvioWhatsApp()" class="btn-enviar-wa">ENVIAR A WHATSAPP</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalNotificaciones" class="modal-notis">
+        <div class="header-notis">
+            <h3>Notificaciones</h3>
+            <button onclick="cerrarPanelNotis()" style="background:none; border:none; font-size:30px; cursor:pointer; color:#ccc;">&times;</button>
+        </div>
+        <div id="listaHistorial" class="lista-historial"></div>
+        <div class="footer-notis">
+            <button onclick="limpiarHistorial()" class="btn-limpiar">Limpiar Todo</button>
+        </div>
+    </div>
+
+    <script>
+        
+        // --- PUENTE DE NOTIFICACIONES ---
+        window.historial = JSON.parse(localStorage.getItem('historial360')) || [];
+        window.noLeidas = 0;
+
+        window.registrarMovimientoLocal = function(tipo, titulo, mensaje) {
+            const iconos = { entrada: '📈', salida: '📉', critico: '🚨' };
+            const nuevoMov = {
+                icono: iconos[tipo] || '🔔',
+                titulo: titulo,
+                mensaje: mensaje.replace(/\n/g, '<br>'),
+                hora: new Date().toLocaleTimeString('es-MX', { hour:'2-digit', minute:'2-digit' }) + ' - ' + new Date().toLocaleDateString('es-MX', { day:'2-digit', month:'short' })
+            };
+            window.historial.unshift(nuevoMov);
+            if(window.historial.length > 30) window.historial.pop();
+            window.noLeidas++;
+            localStorage.setItem('historial360', JSON.stringify(window.historial));
+            window.actualizarInterfazHistorial();
+        };
+
+        window.actualizarInterfazHistorial = function() {
+            const lista = document.getElementById('listaHistorial');
+            const contador = document.getElementById('contadorNotis');
+            const btn = document.getElementById('btnNotificaciones');
+            if (!lista) return;
+
+            if (window.historial.length === 0) {
+                lista.innerHTML = '<div style="text-align:center; margin-top:100px; color:#bbb;">Sin movimientos recientes</div>';
+            } else {
+                lista.innerHTML = window.historial.map(n => `
+                    <div class="item-noti">
+                        <strong>${n.icono} ${n.titulo}</strong>
+                        <p>${n.mensaje}</p>
+                        <small>${n.hora}</small>
+                    </div>
+                `).join('');
+            }
+
+            if (window.noLeidas > 0) {
+                contador.innerText = window.noLeidas > 9 ? '+9' : window.noLeidas;
+                contador.style.display = 'flex';
+                btn.classList.add('latido');
+            } else {
+                contador.style.display = 'none';
+                btn.classList.remove('latido');
+            }
+        };
+
+        window.abrirPanelNotis = () => {
+            document.getElementById('modalNotificaciones').style.display = 'flex';
+            window.noLeidas = 0;
+            window.actualizarInterfazHistorial();
+        };
+
+        window.cerrarPanelNotis = () => {
+            document.getElementById('modalNotificaciones').style.display = 'none';
+        };
+
+        window.limpiarHistorial = () => {
+            if(confirm("¿Vaciar historial?")) {
+                window.historial = []; window.noLeidas = 0;
+                localStorage.setItem('historial360', JSON.stringify(window.historial));
+                window.actualizarInterfazHistorial();
+            }
+        };
+
+        function volverAtras() { window.history.back(); }
+        
+        document.addEventListener('DOMContentLoaded', window.actualizarInterfazHistorial);
+    </script>
+    
+    <script type="module" src="assets/js/inventario.js"></script>
+</body>
+</html>

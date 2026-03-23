@@ -1,0 +1,507 @@
+/* --- 1. CONFIGURACIÓN GENERAL --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+html {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #f4f7f6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- 2. NAVBAR (ESTILO TRES SESENTA) --- */
+.navbar {
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 3%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid #999;
+    background-image: url('../img/rosa.png'), linear-gradient(to bottom, #e0e0e0 0%, #b3b3b3 100%);
+    background-position: right center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-size: contain, cover;
+}
+
+.logo-link { display: flex; align-items: center; text-decoration: none; gap: 15px; }
+.logo-img { height: 75px; width: auto; }
+.logo-textos-container { display: flex; flex-direction: column; }
+.logo-texto { font-size: 1.4rem; font-weight: 900; color: #000; line-height: 1.1; }
+.logo-eslogan { font-size: 0.8rem; font-weight: 600; color: #444; margin-top: 4px; }
+
+/* --- 3. BOTÓN REGRESAR --- */
+.boton-regresar-area {
+    display: flex; align-items: center; justify-content: center;
+    width: 45px; height: 45px; background: white; border-radius: 12px;
+    color: #7c4dff; text-decoration: none; border: 1px solid #ddd;
+    transition: 0.3s;
+}
+.boton-regresar-area:hover { background: #7c4dff; color: white; transform: translateX(-5px); }
+
+/* --- 4. DASHBOARD (CONTADORES DE RESUMEN) --- */
+.dashboard-resumen {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.card-conteo {
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 700;
+    color: #333;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.card-critico { background-color: #ffebee; border-bottom: 5px solid #ef5350; }
+.card-medio    { background-color: #fffde7; border-bottom: 5px solid #fdd835; }
+.card-optimo   { background-color: #f1f8e9; border-bottom: 5px solid #7cb342; }
+
+.numero-conteo {
+    display: block;
+    font-size: 1.6rem;
+    margin-top: 5px;
+    font-weight: 900;
+}
+
+/* --- 5. BUSCADOR Y FILTROS ESTILIZADOS --- */
+.contenedor-controles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.grupo-busqueda {
+    flex: 2;
+    min-width: 250px;
+    position: relative;
+}
+
+.grupo-busqueda input {
+    width: 100%;
+    padding: 12px 15px 12px 40px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.grupo-busqueda input:focus {
+    border-color: #7c4dff;
+    box-shadow: 0 0 0 4px rgba(124, 77, 255, 0.1);
+}
+
+.grupo-busqueda::before {
+    content: "🔍";
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    opacity: 0.5;
+}
+
+.grupo-filtro {
+    flex: 1;
+    min-width: 200px;
+}
+
+.dropdown-formal {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #7c4dff;
+    border-radius: 12px;
+    background-color: white;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%237c4dff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
+}
+
+/* --- 6. PANEL Y TABLA --- */
+.contenedor-tabla { padding: 30px; flex-grow: 1; display: flex; justify-content: center; }
+
+.panel-gris-formal {
+    background: white; width: 100%; max-width: 1200px;
+    padding: 30px; border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+}
+
+.tabla-formal-datos { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.tabla-formal-datos th { background: #7c4dff; color: white; padding: 15px; text-align: left; }
+.tabla-formal-datos td { padding: 12px 10px; border-bottom: 1px solid #f1f5f9; color: #333; vertical-align: middle; }
+
+/* ESTILO DEL ID (Resaltado) */
+.id-celda {
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    color: #475569 !important;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* COLORES DE SEMÁFORO (Filas) */
+.fila-critica { background-color: #e21e1e7f !important; border-left: 5px solid #ef5350 !important; }
+.fila-media    { background-color: #eedf0cd4 !important; border-left: 5px solid #ffd000 !important; }
+.fila-optima   { background-color: #a3ce72 !important; border-left: 5px solid #7cb342 !important; }
+
+/* --- 7. DISEÑO PARA CELULAR (Súper Compacto) --- */
+@media (max-width: 768px) {
+    .contenedor-controles { flex-direction: column; }
+    .grupo-busqueda, .grupo-filtro { width: 100%; }
+    .contenedor-tabla { padding: 8px; }
+    .panel-gris-formal { padding: 15px; border-radius: 12px; }
+    .dashboard-resumen { gap: 8px; margin-bottom: 15px; }
+    .card-conteo { padding: 10px; font-size: 11px; }
+    .numero-conteo { font-size: 1.2rem; }
+
+    /* Ocultamos ID y Fecha en móvil para que quepa lo importante */
+    .id-celda, .celda-fecha, .th-id, .th-fecha { display: none !important; }
+    
+    .tabla-formal-datos { font-size: 11px !important; }
+    .tabla-formal-datos th, .tabla-formal-datos td { padding: 6px 4px !important; }
+
+    .nombre-producto {
+        display: block;
+        max-width: 110px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+    }
+
+    .btn-editar { padding: 2px 5px !important; font-size: 16px !important; }
+}
+/* Estilos para el Modal de Pedido Expandido */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px); /* Efecto elegante de desenfoque */
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-contenido {
+    background: #ffffff;
+    width: 95%;
+    max-width: 1100px; /* Mucho más ancho */
+    height: 90vh; /* Ocupa casi todo el alto */
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    padding: 20px 30px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dividimos en dos columnas para ver más cosas */
+    gap: 30px;
+}
+
+/* Tarjetas de productos en el modal */
+.card-pedido {
+    background: #fff;
+    border: 1px solid #eef0f2;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.2s;
+}
+
+.card-pedido:hover {
+    border-color: #e91e63;
+    background: #fff9fb;
+}
+
+.modal-footer {
+    padding: 20px 30px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 850px) {
+    .modal-body { grid-template-columns: 1fr; }
+}
+.modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-contenido {
+            background: #fff;
+            width: 95%;
+            max-width: 1200px;
+            height: 90vh;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .modal-header {
+            padding: 20px 40px;
+            background: #fdfdfd;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: #fcfcfc;
+        }
+        .modal-footer {
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+        .card-pedido {
+            background: white;
+            border: 1px solid #eef0f2;
+            border-radius: 15px;
+            padding: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: 0.2s;
+        }
+        .card-pedido:hover { border-color: #e91e63; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .input-cant-pedido {
+            width: 90px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        @media (max-width: 900px) { .modal-body { grid-template-columns: 1fr; } }
+        /* --- OVERLAY (FONDO OSCURO) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 20000;
+}
+
+/* --- CONTENEDOR DEL MODAL --- */
+.modal-contenido {
+    background: #fff;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    animation: zoomIn 0.3s ease;
+    overflow: hidden;
+}
+
+@keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* --- HEADER --- */
+.modal-header-moderno {
+    padding: 20px 30px;
+    background: #fcfcfc;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-info h2 { margin: 0; font-size: 20px; color: #1a1a1a; }
+.header-info p { margin: 5px 0 0; font-size: 13px; color: #777; }
+
+.btn-cerrar-x {
+    background: #f0f0f0;
+    border: none;
+    width: 35px; height: 35px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    color: #888;
+}
+
+/* --- CUERPO DEL MODAL --- */
+.modal-body-moderno {
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    gap: 20px;
+}
+
+/* Columnas de Críticos y Bajos */
+.col-pedido {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.etiqueta-prioridad {
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.prioridad-alta { background: #ffe5e5; color: #d63031; border: 1px solid #fab1a0; }
+.prioridad-baja { background: #fff9db; color: #f39c12; border: 1px solid #f1c40f; }
+
+/* --- TARJETAS DE PRODUCTO (LO MÁS IMPORTANTE) --- */
+.card-pedido {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    margin-bottom: 5px;
+    transition: all 0.2s;
+}
+
+.card-pedido:hover { border-color: #7c4dff; box-shadow: 0 4px 10px rgba(124, 77, 255, 0.1); }
+
+.card-pedido strong {
+    font-size: 12px;
+    color: #333;
+    flex: 1;
+    text-transform: uppercase;
+}
+
+.input-cant-pedido {
+    width: 60px;
+    padding: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 0 10px;
+    outline: none;
+}
+
+.input-cant-pedido:focus { border-color: #7c4dff; background: #f8f7ff; }
+
+/* --- FOOTER --- */
+.modal-footer-moderno {
+    padding: 20px 30px;
+    background: #fcfcfc;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.btn-cancelar {
+    padding: 12px 25px;
+    border: none;
+    background: #f0f0f0;
+    color: #666;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-enviar-wa {
+    padding: 12px 25px;
+    border: none;
+    background: #25D366; /* Verde WhatsApp */
+    color: white;
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+/* RESPONSIVO PARA CELULAR */
+@media (max-width: 650px) {
+    .modal-body-moderno { flex-direction: column; }
+    .modal-contenido { width: 95%; height: 95vh; }
+}
+/* Resaltar que el input ya tiene una sugerencia */
+.input-cant-pedido[value]:not([value="0"]) {
+    border-color: #7c4dff;
+    background-color: #f3efff;
+    color: #7c4dff;
+}

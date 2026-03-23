@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+:root {
+    --magenta-360: #e6007e;
+    --guinda-360: #800040;
+    --gris-barra: linear-gradient(to bottom, #f2f2f2, #d9d9d9);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f7f9;
+    margin: 0;
+}
+
+.barra-superior-360 {
+    background: var(--gris-barra);
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-bottom: 3px solid var(--magenta-360);
+}
+
+.boton-regresar-magenta {
+    text-decoration: none; color: var(--magenta-360);
+    background: white; padding: 10px 15px; border-radius: 10px;
+    font-weight: bold; border: 1px solid #ddd;
+}
+
+.titulo-seccion-360 { margin-left: 20px; font-weight: 800; font-size: 1.1rem; }
+
+.contenedor-principal { padding: 30px; max-width: 1200px; margin: 0 auto; }
+
+.seccion-herramientas {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;
+}
+
+.buscador-premium {
+    background: white; padding: 10px 20px; border-radius: 50px;
+    display: flex; align-items: center; width: 60%; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.buscador-premium input { border: none; outline: none; width: 100%; margin-left: 10px; font-size: 1rem; }
+
+.contador-empleados { font-weight: 800; color: #64748b; background: #e2e8f0; padding: 8px 15px; border-radius: 20px; }
+
+.grid-personal {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;
+}
+
+.tarjeta-empleado {
+    background: white; padding: 25px; border-radius: 24px;
+    display: flex; flex-direction: column; align-items: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid #edf2f7; transition: 0.3s;
+}
+
+.tarjeta-empleado:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+
+.avatar-empleado {
+    width: 60px; height: 60px; background: var(--magenta-360); color: white;
+    font-size: 1.5rem; font-weight: 800; display: flex; align-items: center;
+    justify-content: center; border-radius: 18px; margin-bottom: 15px;
+}
+
+.info-empleado { text-align: center; width: 100%; }
+.info-empleado h3 { margin: 5px 0; color: #1e293b; font-size: 1.1rem; font-weight: 800; }
+.info-empleado .puesto { color: var(--magenta-360); font-weight: 700; font-size: 0.8rem; margin-bottom: 15px; text-transform: uppercase; }
+
+.contacto-detalles {
+    background: #f8fafc; padding: 12px; border-radius: 15px;
+    margin-bottom: 15px; text-align: left;
+}
+
+.item-contacto {
+    font-size: 0.85rem; color: #475569; margin: 5px 0;
+    display: flex; align-items: center; gap: 10px;
+}
+
+.id-tag { font-size: 0.65rem; color: #94a3b8; font-weight: 600; }
+
+.footer-card { margin-top: auto; padding-top: 15px; width: 100%; border-top: 1px solid #f1f5f9; }
+.status-activo { color: #10b981; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }

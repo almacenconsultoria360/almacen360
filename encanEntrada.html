@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrada de Productos - 360</title>
+    <link rel="stylesheet" href="assets/css/principal.css" />
+    <link rel="stylesheet" href="assets/css/escanEntrada.css" /> 
+    <link rel="stylesheet" href="assets/css/ventanaScann.css" />
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="principal.html" class="logo-link">
+            <img src="assets/img/logo.png" alt="Logo 360" class="logo-img">
+            <div class="logo-textos-container">
+                <span class="logo-texto">TRES SESENTA CONSULTORÍA, S.A. DE C.V.</span>
+                <span class="logo-eslogan">LO QUE SE MIDE, SE PUEDE MEJORAR.</span>
+            </div>
+        </a>
+    </nav>
+
+    <main class="contenedor-escaneo">
+        <a href="javascript:void(0);" onclick="window.history.back()" class="boton-regresar-area" title="Volver">
+            <span class="icono-flecha" style="color: #27ae60;">&#10094;</span> 
+        </a>
+
+        <div class="etiqueta-seccion" style="color: #27ae60;">ENTRADA</div>
+        
+        <div class="tarjeta-minimalista" style="border-top: 8px solid #27ae60;">
+            <h1 class="texto-sugerencia">ESCANEA PARA<br> <span style="color: #27ae60; font-weight: 800;">INTRODUCIR</span> PRODUCTOS</h1>
+            <p class="subtexto-info">Los productos se añadirán al stock automáticamente.</p>
+            <a href="otroMEntrada.html" class="boton-alterno-entrada">OTRO MODO</a>
+        </div>
+    </main>
+
+    <div id="modal-lista-carga" class="modal-overlay-lista">
+        <div class="modal-contenedor-lista">
+            <button class="btn-cerrar-lista" onclick="cerrarModalLista()">&times;</button>
+            <div class="modal-header-formal">
+                <h2 style="color: #1e8449; font-weight: 900;">LISTA DE CARGA ACTUAL</h2>
+                <button class="btn-confirmar-entrada" onclick="procesarEntradaCompleta()">CONFIRMAR INGRESO</button>
+            </div>
+            <div class="modal-tabla-scroll">
+                <table class="tabla-formal-carga">
+                    <thead>
+                        <tr style="background-color: #27ae60;">
+                            <th>ID</th>
+                            <th>PRODUCTO</th>
+                            <th>UBICACIÓN</th>
+                            <th style="text-align: center;">CANTIDAD</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-escaneo-cuerpo"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-entrega" class="modal-overlay-lista">
+    <div class="modal-validacion-mini">
+        <div style="font-size: 3rem;">📦</div>
+        <h2>¿QUIÉN ENTREGA?</h2>
+        <p>Escanea gafete de entrega</p>
+        <input type="password" id="inputEmpleadoEntrega" class="input-empleado-360" onchange="validarEmpleado('entrega')">
+    </div>
+</div>
+
+<div id="modal-autoriza" class="modal-overlay-lista">
+    <div class="modal-validacion-mini">
+        <div style="font-size: 3rem;">✅</div>
+        <h2>¿QUIÉN AUTORIZA?</h2>
+        <p>Escanea gafete de autorización</p>
+        <input type="password" id="inputEmpleadoAutoriza" class="input-empleado-360" onchange="validarEmpleado('autoriza')">
+    </div>
+</div>
+
+    <script src="assets/js/principal.js"></script>
+    <script type="module" src="assets/js/ventanaScann.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salida de Productos - 360</title>
+    <link rel="stylesheet" href="assets/css/principal.css" />
+    <link rel="stylesheet" href="assets/css/scannSalida.css" /> 
+    <link rel="stylesheet" href="assets/css/ventanaScann.css" />
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="principal.html" class="logo-link">
+            <img src="assets/img/logo.png" alt="Logo 360" class="logo-img">
+            <div class="logo-textos-container">
+                <span class="logo-texto">TRES SESENTA CONSULTORÍA, S.A. DE C.V.</span>
+                <span class="logo-eslogan">LO QUE SE MIDE, SE PUEDE MEJORAR.</span>
+            </div>
+        </a>
+    </nav>
+
+    <main class="contenedor-escaneo">
+        <a href="javascript:void(0);" onclick="window.history.back()" class="boton-regresar-area" title="Volver">
+            <span class="icono-flecha" style="color: #c0392b;">&#10094;</span> 
+        </a>
+
+        <div class="etiqueta-seccion" style="color: #c0392b;">SALIDA</div>
+        
+        <div class="tarjeta-minimalista" style="border-top: 8px solid #c0392b;">
+            <h1 class="texto-sugerencia">ESCANEA PARA<br> <span style="color: #c0392b; font-weight: 800;">RETIRAR</span> PRODUCTOS</h1>
+            <p class="subtexto-info">La mercancía se descontará del inventario al confirmar.</p>
+            <a href="otroMSalida.html" class="boton-alterno-salida">OTRO MODO</a>
+        </div>
+    </main>
+
+    <div id="modal-lista-carga" class="modal-overlay-lista">
+        <div class="modal-contenedor-lista">
+            <button class="btn-cerrar-lista" onclick="cerrarModalLista()">&times;</button>
+            <div class="modal-header-formal">
+                <h2 style="color: #c0392b; font-weight: 900;">LISTA DE RETIRO ACTUAL</h2>
+                <button class="btn-confirmar-salida" onclick="procesarSalidaCompleta()" style="background:#c0392b; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:bold;">
+                    CONFIRMAR SALIDA
+                </button>
+            </div>
+            <div class="modal-tabla-scroll">
+                <table class="tabla-formal-carga">
+                    <thead>
+                        <tr style="background-color: #c0392b; color: white;">
+                            <th>ID</th>
+                            <th>PRODUCTO</th>
+                            <th>UBICACIÓN</th>
+                            <th style="text-align: center;">CANTIDAD</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-escaneo-cuerpo"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-entrega" class="modal-overlay-lista" style="display: none;">
+        <div class="modal-validacion-mini">
+            <div style="font-size: 3rem;">📤</div>
+            <h2 style="color: #c0392b;">¿QUIÉN SE LLEVA?</h2>
+            <p>Escanea gafete de quien retira</p>
+            <input type="password" id="inputEmpleadoEntrega" class="input-empleado-360" onkeydown="if(event.key==='Enter') validarEmpleado('entrega')">
+        </div>
+    </div>
+
+    <div id="modal-autoriza" class="modal-overlay-lista" style="display: none;">
+        <div class="modal-validacion-mini">
+            <div style="font-size: 3rem;">🛡️</div>
+            <h2 style="color: #2c3e50;">¿QUIÉN AUTORIZA?</h2>
+            <p>Escanea gafete de autorización</p>
+            <input type="password" id="inputEmpleadoAutoriza" class="input-empleado-360" onkeydown="if(event.key==='Enter') validarEmpleado('autoriza')">
+        </div>
+    </div>
+
+    <script src="assets/js/principal.js"></script>
+    <script type="module" src="assets/js/ventanaSalida.js"></script>
+</body>
+</html>

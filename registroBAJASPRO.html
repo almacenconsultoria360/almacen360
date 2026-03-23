@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Bajas - 360</title>
+    <link rel="stylesheet" href="assets/css/AltaProducto.css">
+    <link rel="stylesheet" href="assets/css/registroBAJASPRO.css">
+</head>
+<body>
+    <header class="barra-formal" style="background-color: #2c3e50;">
+        <a href="inventario.html" class="boton-regresar-area">
+            <span class="icono-flecha">&#10094;</span> 
+        </a>
+        <div class="titulo-seccion" style="color: #ffffff;">HISTORIAL DE BAJAS DEFINITIVAS</div>
+    </header>
+
+    <main class="contenedor-principal">
+        <div class="tarjeta-blanca">
+            <div class="modal-header-formal">
+                <h2 style="color: #000000; margin: 0;">BAJAS DE PRODUCTOS</h2>
+                
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="tabla-formal-carga">
+                    <thead>
+                        <tr>
+                            <th>FECHA / HORA</th>
+                            <th>ID PRODUCTO</th>
+                            <th>NOMBRE</th>
+                            <th>STOCK AL ELIMINAR</th>
+                            <th>MOTIVO</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-bajas-cuerpo">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="assets/js/registroBAJASPRO.js"></script>
+</body>
+</html>
