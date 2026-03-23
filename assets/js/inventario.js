@@ -196,7 +196,7 @@ window.procesarEnvioWhatsApp = function() {
         }
     });
     if (!items) return alert("Selecciona productos.");
-    window.open(`https://wa.me/5218331188000?text=${encodeURIComponent(mensaje)}`, '_blank');
+    window.open(`https://wa.me/5218332349431?text=${encodeURIComponent(mensaje)}`, '_blank');
 };
 
 window.editarStockMaximo = async function(id, nom, ideal) {
